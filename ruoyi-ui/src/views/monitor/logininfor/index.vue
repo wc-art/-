@@ -214,7 +214,6 @@ export default {
       defaultSort: { prop: "loginTime", order: "descending" },
       // 查询参数
       queryParams: {
-        orderByColumn: "create_time",
         exportIds: [],
         pageNum: 1,
         pageSize: 10,

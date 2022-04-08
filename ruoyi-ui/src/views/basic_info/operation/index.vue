@@ -1,6 +1,12 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form
+      :model="queryParams"
+      ref="queryForm"
+      :inline="true"
+      v-show="showSearch"
+      label-width="68px"
+    >
       <el-form-item label="操作名称" prop="operationName">
         <el-input
           v-model="queryParams.operationName"
@@ -11,8 +17,16 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          size="mini"
+          @click="handleQuery"
+          >搜索</el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+          >重置</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -25,7 +39,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:operation:add']"
-        >新增</el-button>
+          >新增</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -36,7 +51,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:operation:edit']"
-        >修改</el-button>
+          >修改</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -47,7 +63,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:operation:remove']"
-        >删除</el-button>
+          >删除</el-button
+        >
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -55,21 +72,33 @@
           plain
           icon="el-icon-download"
           size="mini"
-		  :loading="exportLoading"
+          :loading="exportLoading"
           @click="handleExport"
           v-hasPermi="['system:operation:export']"
-        >导出</el-button>
+          >导出</el-button
+        >
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="operationList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="operationList"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" type="index" />
       <el-table-column label="编号" align="center" prop="operationId" />
       <el-table-column label="操作名称" align="center" prop="operationName" />
       <el-table-column label="备注" align="center" prop="note" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column
+        label="操作"
+        align="center"
+        class-name="small-padding fixed-width"
+      >
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -77,20 +106,22 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:operation:edit']"
-          >修改</el-button>
+            >修改</el-button
+          >
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:operation:remove']"
-          >删除</el-button>
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
     <pagination
-      v-show="total>0"
+      v-show="total > 0"
       :total="total"
       :page.sync="queryParams.pageNum"
       :limit.sync="queryParams.pageSize"
@@ -104,7 +135,11 @@
           <el-input v-model="form.operationName" placeholder="请输入操作名称" />
         </el-form-item>
         <el-form-item label="备注" prop="note">
-          <el-input v-model="form.note" type="textarea" placeholder="请输入内容" />
+          <el-input
+            v-model="form.note"
+            type="textarea"
+            placeholder="请输入内容"
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -116,12 +151,18 @@
 </template>
 
 <script>
-import { listOperation, getOperation, delOperation, addOperation, updateOperation, exportOperation } from "@/api/basic_info/operation";
+import {
+  listOperation,
+  getOperation,
+  delOperation,
+  addOperation,
+  updateOperation,
+  exportOperation,
+} from "@/api/basic_info/operation";
 
 export default {
   name: "Operation",
-  components: {
-  },
+  components: {},
   data() {
     return {
       // 遮罩层
@@ -146,7 +187,8 @@ export default {
       open: false,
       // 查询参数
       queryParams: {
-orderByColumn:"create_time",
+        orderByColumn: "create_time",
+        productionoperationIds: [],
         pageNum: 1,
         pageSize: 10,
         operationName: null,
@@ -156,9 +198,9 @@ orderByColumn:"create_time",
       // 表单校验
       rules: {
         operationName: [
-          { required: true, message: "操作名称不能为空", trigger: "blur" }
+          { required: true, message: "操作名称不能为空", trigger: "blur" },
         ],
-      }
+      },
     };
   },
   created() {
@@ -168,7 +210,7 @@ orderByColumn:"create_time",
     /** 查询生产操作管理列表 */
     getList() {
       this.loading = true;
-      listOperation(this.queryParams).then(response => {
+      listOperation(this.queryParams).then((response) => {
         this.operationList = response.rows;
         this.total = response.total;
         this.loading = false;
@@ -188,7 +230,7 @@ orderByColumn:"create_time",
         createBy: null,
         createTime: null,
         updateBy: null,
-        updateTime: null
+        updateTime: null,
       };
       this.resetForm("form");
     },
@@ -204,9 +246,9 @@ orderByColumn:"create_time",
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.operationId)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
+      this.ids = selection.map((item) => item.operationId);
+      this.single = selection.length !== 1;
+      this.multiple = !selection.length;
     },
     /** 新增按钮操作 */
     handleAdd() {
@@ -217,8 +259,8 @@ orderByColumn:"create_time",
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      const operationId = row.operationId || this.ids
-      getOperation(operationId).then(response => {
+      const operationId = row.operationId || this.ids;
+      getOperation(operationId).then((response) => {
         this.form = response.data;
         this.open = true;
         this.title = "修改生产操作管理";
@@ -226,16 +268,16 @@ orderByColumn:"create_time",
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
+      this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.operationId != null) {
-            updateOperation(this.form).then(response => {
+            updateOperation(this.form).then((response) => {
               this.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
-            addOperation(this.form).then(response => {
+            addOperation(this.form).then((response) => {
               this.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -247,32 +289,52 @@ orderByColumn:"create_time",
     /** 删除按钮操作 */
     handleDelete(row) {
       const operationIds = row.operationId || this.ids;
-      this.$confirm('删除该操作会同时删除该操作对应的其他信息，是否确认删除该生产操作?', "警告", {
+      this.$confirm(
+        "删除该操作会同时删除该操作对应的其他信息，是否确认删除该生产操作?",
+        "警告",
+        {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
+          type: "warning",
+        }
+      )
+        .then(function () {
           return delOperation(operationIds);
-        }).then(() => {
+        })
+        .then(() => {
           this.getList();
           this.msgSuccess("删除成功");
-        }).catch(() => {});
+        })
+        .catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$confirm('是否确认导出所有生产操作管理数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
+      queryParams.productionoperationIds = [];
+      if (this.ids.length == 0) {
+        for (let i = 0; i < this.operationList.length; i++) {
+          queryParams.productionoperationIds.push(
+            this.operationList[i].operationId
+          );
+        }
+      } else if (this.ids.length != 0) {
+        queryParams.productionoperationIds = this.ids;
+      }
+      this.$confirm("是否确认导出所有生产操作管理数据项?", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
           this.exportLoading = true;
           return exportOperation(queryParams);
-        }).then(response => {
+        })
+        .then((response) => {
           this.download(response.msg);
           this.exportLoading = false;
-        }).catch(() => {});
-    }
-  }
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>

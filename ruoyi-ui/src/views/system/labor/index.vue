@@ -228,7 +228,6 @@ export default {
       // 查询参数
       queryParams: {
         orderByColumn: "create_time",
-        paramterlaborIds: [],
         pageNum: 1,
         pageSize: 10,
         parameterLaborName: null,
@@ -359,16 +358,6 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      queryParams.parameterLaborIds = [];
-      if (this.ids.length == 0) {
-        for (let i = 0; i < this.laborList.length; i++) {
-          queryParams.parameterLaborIds.push(
-            this.laborList[i].parameterLaborId
-          );
-        }
-      } else if (this.ids.length != 0) {
-        queryParams.parameterLaborIds = this.ids;
-      }
       this.$confirm("是否确认导出所有劳动力参数管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",

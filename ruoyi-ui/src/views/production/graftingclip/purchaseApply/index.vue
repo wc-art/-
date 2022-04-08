@@ -514,7 +514,7 @@ export default {
       queryParams.exportIds = [];
       if (this.ids.length == 0) {
         for (let i = 0; i < this.orderList.length; i++) {
-          queryParams.exportIds.push(this.orderList[i].orderId);
+          queryParams.exportIds.push(this.orderList[i].graftingclipPurchaseApplyId);
         }
       } else if (this.ids.length != 0) {
         queryParams.exportIds = this.ids;

@@ -188,7 +188,6 @@ export default {
       // 查询参数
       queryParams: {
         orderByColumn: "create_time",
-        productionoperationIds: [],
         pageNum: 1,
         pageSize: 10,
         operationName: null,
@@ -306,16 +305,6 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      queryParams.productionoperationIds = [];
-      if (this.ids.length == 0) {
-        for (let i = 0; i < this.customerList.length; i++) {
-          queryParams.productionoperationIds.push(
-            this.operationList[i].operationId
-          );
-        }
-      } else if (this.ids.length != 0) {
-        queryParams.productionoperationIds = this.ids;
-      }
       this.$confirm("是否确认导出所有生产操作管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",

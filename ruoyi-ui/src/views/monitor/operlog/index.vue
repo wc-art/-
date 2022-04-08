@@ -311,7 +311,6 @@ export default {
       form: {},
       // 查询参数
       queryParams: {
-        orderByColumn: "create_time",
         exportIds: [],
         pageNum: 1,
         pageSize: 10,
