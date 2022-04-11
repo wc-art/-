@@ -277,6 +277,10 @@ export default {
       listUsers(this.queryParams).then(response => {
         console.log(response.rows)
         this.usersList = response.rows;
+        this.usersList.forEach(item => {
+          if(item.sex == '1') item.sex = '男'
+          else item.sex = '女'
+        })
         this.total = response.total;
         this.loading = false;
       });

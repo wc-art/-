@@ -46,14 +46,20 @@ export function delNews(data) {
 
 
 
-// 删除一条消息提示
-export function delNews1(data) {
+// 删除多条关联消息提示
+export function delNewsRelated(data) {
   return request({
-    url: '/system/news/delete1',
-    method: 'delete',
-    data: data
+    url: `/system/news/delete?menuId1=${data.menuId1}&menuId2=${data.menuId2}&menuId3=${data.menuId3}`,
+    method: 'delete'
   })
 }
+// export function delNews1(data) {
+//   return request({
+//     url: '/system/news/delete1',
+//     method: 'delete',
+//     data: data
+//   })
+// }
 
 // 导出消息提示
 export function exportNews(query) {

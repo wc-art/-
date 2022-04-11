@@ -172,10 +172,11 @@ import SizeSelect from "@/components/SizeSelect";
 import Search from "@/components/HeaderSearch";
 import RuoYiGit from "@/components/RuoYi/Git";
 import RuoYiDoc from "@/components/RuoYi/Doc";
+import { getUserId } from "@/api/system/user";
 import {
   listNews,
   getNews,
-  delNews,
+  delNewsRelated,
   addNews,
   updateNews,
   exportNews,
@@ -238,8 +239,9 @@ export default {
     },
 
     /** 跳转按钮操作 */
-    goto(row) {
+    async goto(row) {
       // this.reset();
+      const { menuId3,menuId2,menuId1} = row
       console.log("row", row);
       this.drawer = false;
       const newsId = row.newsId || this.ids;
@@ -316,229 +318,23 @@ export default {
         [2555, "/production/production/greenhousefilmre"], // 棚膜退回
         [2561, "/production/production/cartonre"], // 纸箱退回
       ]);
-      this.$router.push(`${objRouter.get(row.menuId3 ? row.menuId3 : (row.menuId2 ? row.menuId2 : row.menuId1))}`);
-
-      // switch (ch1) {
-      //   case "出圃管理":
-      //     switch (ch2) {
-      //       case "出圃管理":
-      //         this.$router.push("/transplant/transplant");
-      //         break;
-      //     }
-      //     break;
-      //   case "生产过程管理":
-      //     switch (ch2) {
-      //       case "基质调配管理":
-      //         this.$router.push("/process/stromamix");
-      //         break;
-      //       case "装盘管理":
-      //         this.$router.push("/process/loadplate");
-      //         break;
-      //       case "人工播种管理":
-      //         this.$router.push("/process/artiseeding");
-      //         break;
-      //       case "机器播种管理":
-      //         this.$router.push("/process/machseeding");
-      //         break;
-      //       case "分苗管理":
-      //         this.$router.push("/process/sepaseedling");
-      //         break;
-      //       case "脱帽管理":
-      //         this.$router.push("/process/takeoffhat");
-      //         break;
-      //       case "移盘管理":
-      //         this.$router.push("/process/moveplate");
-      //         break;
-      //       case "嫁接管理":
-      //         this.$router.push("/process/grafting");
-      //         break;
-      //       case "除萌蘖管理":
-      //         this.$router.push("/process/remosproutiller");
-      //         break;
-      //       case "合盘管理":
-      //         this.$router.push("/process/mergeplate");
-      //         break;
-      //       case "施肥管理":
-      //         this.$router.push("/process/fertilize");
-      //         break;
-      //       case "装箱管理":
-      //         this.$router.push("/process/packing");
-      //         break;
-      //     }
-      //     break;
-      //   case "劳动力管理":
-      //     switch (ch2) {
-      //       case "劳动力情况":
-      //         this.$router.push("/labormgr/labor");
-      //         break;
-      //       case "其他劳动力情况":
-      //         this.$router.push("/labormgr/otherlabor");
-      //         break;
-      //     }
-      //     break;
-      //   case "生产资料管理":
-      //     switch (ch2) {
-      //       case "审核采购生产资料":
-      //         switch (ch3) {
-      //           case "种子审核":
-      //             this.$router.push("/production/permit/seed");
-      //             break;
-      //           case "基质审核":
-      //             this.$router.push("/production/permit/stromapermit");
-      //             break;
-      //           case "穴盘审核":
-      //             this.$router.push("/production/permit/plugpermit");
-      //             break;
-      //           case "农药审核":
-      //             this.$router.push("/production/permit/pesticidepermit");
-      //             break;
-      //           case "调节剂审核":
-      //             this.$router.push("/production/permit/regulatorpermit");
-      //             break;
-      //           case "化肥审核":
-      //             this.$router.push("/production/permit/fertilizerpermit");
-      //             break;
-      //           case "嫁接夹审核":
-      //             this.$router.push("/production/permit/graftingclippermit");
-      //             break;
-      //           case "嫁接签审核":
-      //             this.$router.push("/production/permit/graftinglabelpermit");
-      //             break;
-      //           case "刀片审核":
-      //             this.$router.push("/production/permit/bladepermit");
-      //             break;
-      //           case "棚膜审核":
-      //             this.$router.push("/production/permit/greenhousefilmPermit");
-      //             break;
-      //           case "纸箱审核":
-      //             this.$router.push("/production/permit/cartonpermit");
-      //             break;
-      //         }
-      //         break;
-      //       case "审核领用生产资料":
-      //         switch (ch3) {
-      //           case "种子审核":
-      //             this.$router.push("/production/permitUse/seed");
-      //             break;
-      //           case "基质审核":
-      //             this.$router.push("/production/permitUse/stroma");
-      //             break;
-      //           case "穴盘审核":
-      //             this.$router.push("/production/permitUse/plug");
-      //             break;
-      //           case "农药审核":
-      //             this.$router.push("/production/permitUse/pesticide");
-      //             break;
-      //           case "调节剂审核":
-      //             this.$router.push("/production/permitUse/regulator");
-      //             break;
-      //           case "化肥审核":
-      //             this.$router.push("/production/permitUse/fertilizer");
-      //             break;
-      //           case "嫁接夹审核":
-      //             this.$router.push("/production/permitUse/graftingclip");
-      //             break;
-      //           case "嫁接签审核":
-      //             this.$router.push("/production/permitUse/graftinglabel");
-      //             break;
-      //           case "刀片审核":
-      //             this.$router.push("/production/permitUse/blade");
-      //             break;
-      //           case "棚膜审核":
-      //             this.$router.push("/production/permitUse/greenhousefilm");
-      //             break;
-      //           case "纸箱审核":
-      //             this.$router.push("/production/permitUse/carton");
-      //             break;
-      //         }
-      //         break;
-      //       case "审核临时生产资料":
-      //         switch (ch3) {
-      //           case "种子临时审核":
-      //             this.$router.push("/production/temporaryPermit/seed");
-      //             break;
-      //           case "基质临时审核":
-      //             this.$router.push("/production/temporaryPermit/stroma");
-      //             break;
-      //           case "穴盘临时审核":
-      //             this.$router.push("/production/temporaryPermit/plug");
-      //             break;
-      //           case "农药临时审核":
-      //             this.$router.push("/production/temporaryPermit/pesticide");
-      //             break;
-      //           case "调节剂临时审核":
-      //             this.$router.push("/production/temporaryPermit/regulator");
-      //             break;
-      //           case "化肥临时审核":
-      //             this.$router.push("/production/temporaryPermit/fertilizer");
-      //             break;
-      //           case "嫁接夹临时审核":
-      //             this.$router.push("/production/temporaryPermit/graftingclip");
-      //             break;
-      //           case "嫁接签临时审核":
-      //             this.$router.push(
-      //               "/production/temporaryPermit/graftinglabel"
-      //             );
-      //             break;
-      //           case "刀片临时审核":
-      //             this.$router.push("/production/temporaryPermit/blade");
-      //             break;
-      //           case "棚膜临时审核":
-      //             this.$router.push(
-      //               "/production/temporaryPermit/greenhousefilm"
-      //             );
-      //             break;
-      //           case "纸箱临时审核":
-      //             this.$router.push("/production/temporaryPermit/carton");
-      //             break;
-      //         }
-      //         break;
-      //       case "生产资料退回":
-      //         switch (ch3) {
-      //           case "种子退回":
-      //             this.$router.push("/production/production/seedre");
-      //             break;
-      //           case "基质退回":
-      //             this.$router.push("/production/production/stromare");
-      //             break;
-      //           case "穴盘退回":
-      //             this.$router.push("/production/production/plugre");
-      //             break;
-      //           case "农药退回":
-      //             this.$router.push("/production/production/pesticidere");
-      //             break;
-      //           case "调节剂退回":
-      //             this.$router.push("/production/production/regulatorre");
-      //             break;
-      //           case "化肥退回":
-      //             this.$router.push("/production/production/fertilizerre");
-      //             break;
-      //           case "嫁接夹退回":
-      //             this.$router.push("/production/production/graftingclipre");
-      //             break;
-      //           case "嫁接签退回":
-      //             this.$router.push("/production/production/graftinglabelre");
-      //             break;
-      //           case "刀片退回":
-      //             this.$router.push("/production/production/bladere");
-      //             break;
-      //           case "棚膜退回":
-      //             this.$router.push("/production/production/greenhousefilmre");
-      //             break;
-      //           case "纸箱退回":
-      //             this.$router.push("/production/production/cartonre");
-      //             break;
-      //         }
-      //         break;
-      //     }
-      //     break;
-      // }
+      this.$router.push(
+        `${objRouter.get(
+          menuId3 ? menuId3 : menuId2 ? menuId2 : menuId1
+        )}`
+      );
+      await delNewsRelated({
+        menuId3,
+        menuId2,
+        menuId1
+      })
+      this.getTodoNum()
     },
 
     handleClose(done) {
       done();
     },
-    getTodoNum() {
+    async getTodoNum() {
       this.todoNum = 0;
       console.log("当前用户的角色", this.$store.getters.roles);
       this.userRoles = this.$store.getters.roles;
@@ -549,35 +345,41 @@ export default {
       //   }
       // }
 
-      listNews().then((response) => {
-        console.log("11");
-        this.newsList = [];
-        console.log("消息列表", response);
-        for (var i = 0; i < this.userRoles.length; i++) {
-          for (var j = 0; j < response.rows.length; j++) {
-            // if(this.userRoles[i]=="admin"){
-            //   this.newsList=response.rows
-            // }
-
-            if (this.userRoles[i] == response.rows[j].approvalBy) {
-              response.rows[j].approvalStatus = "待审核";
-              this.newsList.push(response.rows[j]);
-            }
-          }
-        }
-        this.minMenuId = response.menuId; // 接收传入的最小一级菜单的id
-        this.total = this.newsList.length;
-        console.log("数据条数", this.total);
-        this.todoNum = this.total;
-        console.log("!!", this.todoNum);
-        if (this.todoNum !== 0) {
-          this.isHidden = false;
-        }
-        if (this.todoNum == 0) {
-          this.isHidden = true;
-        }
-      });
       this.loading = false;
+      let response = await listNews();
+      let userId = (await getUserId({userName:this.$store.getters.name})).data
+      console.log("11");
+      this.newsList = [];
+      console.log("消息列表", response);
+      response.rows.forEach(item => {
+        if(item.approvalId === userId) {
+          this.newsList.push(item)
+        }
+      })
+      console.log('userId',userId)
+      // for (var i = 0; i < this.userRoles.length; i++) {
+      //   for (var j = 0; j < response.rows.length; j++) {
+      //     // if(this.userRoles[i]=="admin"){
+      //     //   this.newsList=response.rows
+      //     // }
+
+      //     if (this.userRoles[i] == response.rows[j].approvalBy) {
+      //       response.rows[j].approvalStatus = "待审核";
+      //       this.newsList.push(response.rows[j]);
+      //     }
+      //   }
+      // }
+      // this.minMenuId = response.menuId; // 接收传入的最小一级菜单的id
+      this.total = this.newsList.length;
+      console.log("数据条数", this.total);
+      this.todoNum = this.total;
+      console.log("!!", this.todoNum);
+      if (this.todoNum !== 0) {
+        this.isHidden = false;
+      }
+      if (this.todoNum == 0) {
+        this.isHidden = true;
+      }
     },
 
     // todo() {

@@ -368,7 +368,7 @@ export default {
       // 查询参数
       queryParams: {
         orderByColumn: "create_time",
-        orderIds: [],
+        exportIds: [],
         pageNum: 1,
         pageSize: 10,
         fertilizerTypeId: null,
@@ -584,13 +584,13 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      queryParams.orderIds = [];
+      queryParams.exportIds = [];
       if (this.ids.length == 0) {
         for (let i = 0; i < this.fertilizerPurchaseList.length; i++) {
-          queryParams.orderIds.push(this.fertilizerPurchaseList[i].fertilizerPurchaseId);
+          queryParams.exportIds.push(this.fertilizerPurchaseList[i].fertilizerPurchaseId);
         }
       } else if (this.ids.length != 0) {
-        queryParams.orderIds = this.ids;
+        queryParams.exportIds = this.ids;
       }
       this.$confirm("是否确认导出所有化肥购买信息数据项?", "提示", {
         confirmButtonText: "确定",

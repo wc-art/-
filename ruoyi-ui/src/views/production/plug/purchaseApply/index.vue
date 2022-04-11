@@ -296,7 +296,7 @@ export default {
       // 查询参数
       queryParams: {
         orderByColumn: "create_time",
-        exportIds: [],
+        orderIds: [],
         pageNum: 1,
         pageSize: 10,
         orderName: null,
@@ -509,13 +509,13 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      queryParams.exportIds = [];
+      queryParams.orderIds = [];
       if (this.ids.length == 0) {
         for (let i = 0; i < this.orderList.length; i++) {
-          queryParams.exportIds.push(this.orderList[i].plugPurchaseApplyId);
+          queryParams.orderIds.push(this.orderList[i].plugPurchaseApplyId);
         }
       } else if (this.ids.length != 0) {
-        queryParams.exportIds = this.ids;
+        queryParams.orderIds = this.ids;
       }
       this.$confirm("是否确认导出所有穴盘购买申请数据项?", "提示", {
         confirmButtonText: "确定",
