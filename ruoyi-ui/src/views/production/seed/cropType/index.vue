@@ -327,7 +327,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.croptypeIds = this.ids;
       }
-      this.$confirm("是否确认导出所有蔬菜类型数据项?", "提示", {
+      this.$confirm("是否确认导出蔬菜类型数据项?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

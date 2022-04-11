@@ -78,7 +78,7 @@
     data() {
       return {
         // 图片url数组
-        imgUrls: [],
+        // imgUrls: [],
         // 编辑器内容
         content: this.value,
         // 编辑器配置项
@@ -110,7 +110,7 @@
             }
           }
         },
-        uploadImgUrl: `${process.env.VUE_APP_BASE_API}/txt/image/firstUpload`, // 上传的图片服务器地址
+        uploadImgUrl: `${process.env.VUE_APP_BASE_API}/expert/txt/image/upload`, // 上传的图片服务器地址
         headers: {
           Authorization: 'Bearer ' + getToken()
         }
@@ -122,22 +122,22 @@
       }
     },
     methods: {
-      onEditorBlur() {
-        //失去焦点事件
-        this.$emit('uploadDetails', this.imgUrls)
-      },
+      // onEditorBlur() {
+      //   //失去焦点事件
+      //   this.$emit('uploadDetails', this.imgUrls)
+      // },
       onEditorFocus() {
         //获得焦点事件
       },
       onEditorChange() {
         //内容改变事件
-        this.$emit("input", this.content);
+        // this.$emit("input", this.content);
       },
 
       // 富文本图片上传前
       quillImgBefore(file) {
         let fileType = file.type;
-        if (fileType === 'image/jpeg' || fileType === 'image/png') {
+        if (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') {
           return true;
         } else {
           this.$message.error('请插入图片类型文件(jpg/jpeg/png)');
@@ -154,9 +154,9 @@
           // 获取光标所在位置
           let length = quill.getSelection().index;
           // 插入图片  res.url为服务器返回的图片地址
-          console.log('url', res.url)
-          this.imgUrls.push(url)
-          quill.insertEmbed(length, "image", res.url);
+          console.log('url', res.msg)
+          // this.imgUrls.push(url)
+          quill.insertEmbed(length, "image", res.msg);
           // 调整光标到最后
           quill.setSelection(length + 1);
         } else {

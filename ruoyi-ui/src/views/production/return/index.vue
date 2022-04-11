@@ -558,7 +558,7 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$confirm("是否确认导出所有种子退回数据项?", "提示", {
+      this.$confirm("是否确认导出种子退回数据项?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

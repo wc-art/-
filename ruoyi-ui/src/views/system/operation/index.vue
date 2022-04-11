@@ -305,7 +305,7 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$confirm("是否确认导出所有生产操作管理数据项?", "警告", {
+      this.$confirm("是否确认导出生产操作管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

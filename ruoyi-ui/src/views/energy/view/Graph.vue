@@ -38,7 +38,7 @@
           name: this.gid,
           type: 'value',
           min: 'dataMin',
-          max: Math.max(...values) > 100 ? 'dataMax' : Math.max(...values),
+          max: Math.max(...values) > 10 ? 'dataMax' : 10,
           nameTextStyle: {
             padding: [0, 0, 0, 50]
           }

@@ -918,7 +918,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.exportIds = this.ids;
       }
-      this.$confirm("是否确认导出所有种子申请数据项?", "提示", {
+      this.$confirm("是否确认导出种子申请数据项?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

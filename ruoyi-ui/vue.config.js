@@ -33,9 +33,9 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target:'http://101.43.162.233:30001', //许家森
+        // target:'http://101.43.162.233:30001', //许家森
         // target: `http://81.71.138.29:30001`, //学姐
-        // target: 'http://101.42.223.188:3000', // 家伟
+        target: 'http://101.42.223.188:3000', // 家伟
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''

@@ -652,7 +652,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.exportIds = this.ids;
       }
-      this.$confirm("是否确认导出所有调节剂临时领用数据项?", "警告", {
+      this.$confirm("是否确认导出调节剂临时领用数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

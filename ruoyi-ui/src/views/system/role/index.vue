@@ -709,7 +709,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.sysroleIds = this.ids;
       }
-      this.$confirm("是否确认导出所有角色数据项?", "警告", {
+      this.$confirm("是否确认导出角色数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

@@ -786,7 +786,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.plugReturnIds = this.ids;
       }
-      this.$confirm("是否确认导出所有穴盘退回数据项?", "警告", {
+      this.$confirm("是否确认导出穴盘退回数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

@@ -428,7 +428,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.exportIds = this.ids;
       }
-      this.$confirm("是否确认导出所有嫁接签量数据项?", "提示", {
+      this.$confirm("是否确认导出嫁接签量数据项?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

@@ -847,7 +847,7 @@ orderByColumn:"create_time",
       else if(this.ids.length!=0) {
         queryParams.workGraftingIds = this.ids
       }
-      this.$confirm("是否确认导出所有嫁接管理数据项?", "警告", {
+      this.$confirm("是否确认导出嫁接管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

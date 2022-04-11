@@ -853,7 +853,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.workArtiseedingIds = this.ids;
       }
-      this.$confirm("是否确认导出所有人工播种数据项?", "警告", {
+      this.$confirm("是否确认导出人工播种数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

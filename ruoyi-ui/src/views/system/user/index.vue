@@ -1345,7 +1345,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.sysuserIds = this.ids;
       }
-      this.$confirm("是否确认导出所有用户数据项?", "警告", {
+      this.$confirm("是否确认导出用户数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

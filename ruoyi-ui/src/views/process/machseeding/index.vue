@@ -848,7 +848,7 @@ orderByColumn:"create_time",
       else if(this.ids.length!=0) {
         queryParams.workMachseedingIds = this.ids
       }
-      this.$confirm("是否确认导出所有机器播种管理数据项?", "警告", {
+      this.$confirm("是否确认导出机器播种管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

@@ -139,17 +139,9 @@
       <el-table-column label="联系人" align="center" prop="contactPerson" />
       <el-table-column label="电话" align="center" prop="customerPhone" />
       <el-table-column label="订单名称" align="center" prop="orderName" />
-      <el-table-column label="订单数量" align="center" prop="orderAmount">
-        <template slot-scope="scope">
-          <span>{{ scope.row.orderAmount}}份</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="订单数量(株)" align="center" prop="orderAmount" />
       <el-table-column label="订单要求" align="center" prop="requirement" />
-      <el-table-column label="合同单价" align="center" prop="contractPrice">
-        <template slot-scope="scope">
-          <span>{{ scope.row.contractPrice }}元</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="合同单价(元/株)" align="center" prop="contractPrice" />
       <el-table-column
         label="接单日期"
         align="center"
@@ -414,7 +406,7 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$confirm("是否确认导出所有VIEW数据项?", "警告", {
+      this.$confirm("是否确认导出VIEW数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

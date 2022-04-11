@@ -15,7 +15,7 @@
       <el-form-item label="配图:" prop="urls">
         <el-carousel height="200px" style="width:500px;" v-show="hasImg">
           <el-carousel-item v-for="url in urls" :key="url" style="width: 500px; height: 200px; margin:0;">
-            <el-image :src="url" :preview-src-list="urls" style="object-fit:cover" :key="url"></el-image>
+            <el-image :src="url" :preview-src-list="urls" style="width:400px;height:200px;" :key="url"></el-image>
           </el-carousel-item>
         </el-carousel>
         <div v-show="!hasImg">无图片</div>
@@ -76,9 +76,9 @@
           xhr.setRequestHeader("Authorization", "Bearer " + getToken())  // token键值对
           xhr.onload = async function () {
             if (this.status == 200) {
-              var blob = this.response
-              var a = document.createElement("a")
-              var url = window.URL.createObjectURL(blob)
+              let blob = this.response
+              let a = document.createElement("a")
+              let url = window.URL.createObjectURL(blob)
               a.href = url
               a.download = parseTime(new Date()) + '.docx'  // 文件名
               await a.click()

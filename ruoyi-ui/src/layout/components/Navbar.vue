@@ -175,11 +175,7 @@ import RuoYiDoc from "@/components/RuoYi/Doc";
 import { getUserId } from "@/api/system/user";
 import {
   listNews,
-  getNews,
   delNewsRelated,
-  addNews,
-  updateNews,
-  exportNews,
 } from "@/api/news/news";
 
 export default {
@@ -245,18 +241,6 @@ export default {
       console.log("row", row);
       this.drawer = false;
       const newsId = row.newsId || this.ids;
-      // getNews(newsId).then(response => {
-      //   this.form = response.data;
-      //   this.open = true;
-      //   this.title = "修改消息提示";
-      // });
-      // if(row.menuName1=="生产过程管理"&&row.menuName2=="基质调配管理"){
-      //   console.log("22")
-      //   this.$router.push('/process/stromamix');
-      // }
-      // let ch1 = row.menuName1;
-      // let ch2 = row.menuName2;
-      // let ch3 = row.menuName3;
       let objRouter = new Map([
         [2158, "/transplant/transplant"], // 出圃信息
         [2207, "/process/stromamix"], // 基质调配管理
@@ -355,6 +339,7 @@ export default {
         if(item.approvalId === userId) {
           this.newsList.push(item)
         }
+        item.approvalStatus = "待审核"
       })
       console.log('userId',userId)
       // for (var i = 0; i < this.userRoles.length; i++) {

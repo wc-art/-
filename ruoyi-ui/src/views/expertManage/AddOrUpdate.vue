@@ -22,6 +22,7 @@
           :file-list="fileList"
           list-type="picture"
           :before-remove="beforeRemove"
+          :on-change="onChange"
           :on-remove="onRemove"
           :auto-upload="false"
           accept=".jpeg,.jpg,.png,.gif"
@@ -67,8 +68,6 @@
         <quill-editor
           :value="form.expertdbDetails"
           :from="from"
-          @input="UpInput"
-          @uploadDetails="getImgUrls"
         ></quill-editor>
       </el-form-item>
     </el-form>
@@ -93,7 +92,7 @@ import { addPest, updatePest, getImgPest } from "@/api/expertManage/pest";
 import QuillEditor from "./QuillEditor";
 import { parseTime } from "@/utils/ruoyi";
 import { getToken } from "@/utils/auth";
-import { deleteImage } from "@/api/expertManage/downloadAndUpload"
+import { deleteImage } from "@/api/expertManage/downloadAndUpload";
 export default {
   name: "AddOrUpdate",
   props: ["title", "form", "rules", "open", "categoryName", "from"],
@@ -104,7 +103,7 @@ export default {
   data() {
     return {
       // 富文本编辑器的服务器上传所有图片路径数组
-      imgUrls: [],
+      // imgUrls: [],
       // 图片上传路由
       uploadImgUrl: "",
       // 文件上传路由
@@ -121,62 +120,71 @@ export default {
   },
   methods: {
     // 删除用户编辑后服务器中的图片
-    deleteImgs(imgUrls) {
-      const htmlContent = this.form.expertdbDetails;
-      const imgReg = /<img.*?(?:>|\/>)/gi;
-      // 匹配src属性
-      const srcReg = /src=[\\"]?([^\\"]*)[\\"]?/i;
-      const arr = htmlContent.match(imgReg);
-      let imgs = [];
-      if (arr) {
-        for (let i = 0; i < arr.length; i++) {
-          var src = arr[i].match(srcReg)[1];
-          imgs.push(src);
-        }
-      }
-      for (let img of imgs) {
-        if (imgUrls.indexOf(img) !== -1) {
-          delete window.img;
-        }
-      }
-    },
+    // deleteImgs(imgUrls) {
+    //   const htmlContent = this.form.expertdbDetails;
+    //   const imgReg = /<img.*?(?:>|\/>)/gi;
+    //   // 匹配src属性
+    //   const srcReg = /src=[\\"]?([^\\"]*)[\\"]?/i;
+    //   const arr = htmlContent.match(imgReg);
+    //   let imgs = [];
+    //   if (arr) {
+    //     for (let i = 0; i < arr.length; i++) {
+    //       var src = arr[i].match(srcReg)[1];
+    //       imgs.push(src);
+    //     }
+    //   }
+    //   for (let img of imgs) {
+    //     if (imgUrls.indexOf(img) !== -1) {
+    //       delete window.img;
+    //     }
+    //   }
+    // },
     // 获取服务器上传的所有url地址进行比对
-    getImgUrls(imgUrls) {
-      this.imgUrls = imgUrls;
-    },
+    // getImgUrls(imgUrls) {
+    //   this.imgUrls = imgUrls;
+    // },
     // 富文本编辑器更新
-    UpInput(msg) {
-      this.form.expertdbDetails = msg;
-    },
+    // UpInput(msg) {
+    //   this.form.expertdbDetails = msg;
+    // },
     // 移除文件之前
     beforeRemove(file) {
       return this.$confirm(`确定移除${file.name}`);
     },
+    onChange(file, fileList) {
+      if (file.size / 1024 / 1024 > 1) {
+        this.msgError("上传文件大小不应超过1M");
+        fileList.forEach((item, index) => {
+          if (item.uid === file.uid) {
+            fileList.splice(index, 1);
+          }
+        });
+      }
+    },
     // 移除文件
-    onRemove(file, fileList) {
-      let index
-      for(let i=0;i<this.fileList.length;i++) {
-        if(this.fileList[i].uid === file.uid) {
-          index = i
-          break
+    onRemove(file) {
+      let index;
+      for (let i = 0; i < this.fileList.length; i++) {
+        if (this.fileList[i].uid === file.uid) {
+          index = i;
+          break;
         }
       }
       deleteImage({
         index,
         from: this.from,
-        id: this.form.expertdbId
-      }).then(res => {
-        if(res) {
-          this.$message({
-            message: '图片删除成功',
-            type: 'success'
-          })
-        } else {
-          this.$message.error('图片删除异常')
-        }
-      }).catch(err => {
-        this.$message.error('图片删除异常')
+        id: this.form.expertdbId,
       })
+        .then((res) => {
+          if (res) {
+            this.msgSuccess("图片删除成功");
+          } else {
+            this.msgError("图片删除异常");
+          }
+        })
+        .catch((err) => {
+          this.msgError("图片删除异常");
+        });
     },
     /** 提交按钮 */
     submitForm() {
@@ -200,7 +208,7 @@ export default {
             this.uploadDocUrl = `${process.env.VUE_APP_BASE_API}/expert/wordfile/firstupload?id=${this.form.expertdbId}&from=${from}`;
             this.uploadImgUrl = `${process.env.VUE_APP_BASE_API}/expert/imagefile/firstupload?id=${this.form.expertdbId}&from=${from}`;
             await update(this.form).then(
-              (response) => {
+              () => {
                 this.msgSuccess("修改成功");
               },
               (err) => {

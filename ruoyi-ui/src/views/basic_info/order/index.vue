@@ -358,7 +358,7 @@ export default {
       } else if (this.ids.length != 0) {
         queryParams.paramterorderIds = this.ids;
       }
-      this.$confirm("是否确认导出所有订单参数管理数据项?", "警告", {
+      this.$confirm("是否确认导出订单参数管理数据项?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
