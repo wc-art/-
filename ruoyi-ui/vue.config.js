@@ -40,6 +40,13 @@ module.exports = {
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         }
+      },
+      '/web': {
+        target: 'http://101.42.223.188:20001',
+        changeOrigin: true,
+        pathRewrite: {
+          ['^/web']: ''
+        }
       }
     },
     disableHostCheck: true

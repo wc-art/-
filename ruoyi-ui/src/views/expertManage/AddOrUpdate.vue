@@ -57,7 +57,7 @@
         </el-upload>
       </el-form-item>
 
-      <el-form-item label="简介：" prop="expertdbBIntroduction">
+      <el-form-item label="简介：" prop="expertdbBriefIntroduction">
         <el-input
           v-model="form.expertdbBriefIntroduction"
           type="textarea"
@@ -68,6 +68,7 @@
         <quill-editor
           :value="form.expertdbDetails"
           :from="from"
+          @input="changeEditor"
         ></quill-editor>
       </el-form-item>
     </el-form>
@@ -115,10 +116,14 @@ export default {
       // 上传时携带token
       headers: {
         Authorization: "Bearer " + getToken(),
-      },
+      }
     };
   },
   methods: {
+    // 富文本编辑器改变更新值
+    changeEditor(content) {
+      this.form.exportdbDetails = content
+    },
     // 删除用户编辑后服务器中的图片
     // deleteImgs(imgUrls) {
     //   const htmlContent = this.form.expertdbDetails;
@@ -319,7 +324,7 @@ export default {
         this.docList = [];
         this.fileList = [];
       }
-    },
+    }
   },
 };
 </script>
